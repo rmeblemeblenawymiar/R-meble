@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>R-Meble – Nowoczesne meble na wymiar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Poppins', sans-serif; background: #121212; color: #f0f0f0; line-height: 1.6; }
+    header { background: #000; padding: 50px 20px; text-align: center; }
+    header h1 { font-size: 3rem; color: #fff; }
+    header p { color: #aaa; margin-top: 10px; font-size: 1.2rem; }
+    nav { background: #1e1e1e; padding: 10px 0; text-align: center; }
+    nav a { color: #fff; margin: 0 15px; text-decoration: none; font-weight: 500; }
+    nav a:hover { text-decoration: underline; }
+    section { max-width: 1200px; margin: auto; padding: 60px 20px; }
+    h2 { font-size: 2rem; margin-bottom: 30px; text-align: center; color: #fff; }
+    .gallery { display: flex; flex-wrap: wrap; gap: 20px; justify-content: center; }
+    .gallery img { width: 300px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); transition: 0.3s; }
+    .gallery img:hover { transform: scale(1.05); }
+    form { background: #1c1c1c; padding: 30px; border-radius: 10px; max-width: 600px; margin: auto; }
+    form input, form select, form textarea { width: 100%; padding: 12px; margin-top: 15px; background: #2a2a2a; border: 1px solid #444; border-radius: 5px; color: #fff; }
+    form button { margin-top: 20px; padding: 12px 20px; background: #fff; color: #000; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    .opinions { text-align: center; max-width: 800px; margin: auto; }
+    .opinions p { margin-bottom: 20px; font-style: italic; color: #ccc; }
+    footer { background: #000; color: #777; text-align: center; padding: 30px 20px; font-size: 0.9rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>R-Meble</h1>
+  <p>Meble na wymiar w nowoczesnym stylu – bez kompromisów</p>
+</header>
+
+<nav>
+  <a href="#galeria">Galeria</a>
+  <a href="#kalkulator">Kalkulator</a>
+  <a href="#opinie">Opinie</a>
+  <a href="#kontakt">Kontakt</a>
+</nav>
+
+<section id="galeria">
+  <h2>Nasze realizacje</h2>
+  <div class="gallery">
+    <img src="https://rmeble.s3.eu-central-1.amazonaws.com/kuchnia_nowoczesna.jpg" alt="Kuchnia" />
+    <img src="https://rmeble.s3.eu-central-1.amazonaws.com/szafa_przesuwna.jpg" alt="Szafa" />
+    <img src="https://rmeble.s3.eu-central-1.amazonaws.com/garderoba.jpg" alt="Garderoba" />
+    <img src="https://rmeble.s3.eu-central-1.amazonaws.com/lazienka.jpg" alt="Łazienka" />
+  </div>
+</section>
+
+<section id="kalkulator">
+  <h2>Kalkulator wyceny</h2>
+  <form onsubmit="event.preventDefault(); oblicz();">
+    <select id="typ">
+      <option value="kuchnia">Kuchnia</option>
+      <option value="szafa">Szafa przesuwna</option>
+    </select>
+    <input type="number" id="szerokosc" placeholder="Szerokość (cm)" required />
+    <input type="number" id="wysokosc" placeholder="Wysokość (cm)" required />
+    <select id="material">
+      <option value="standard">Standard</option>
+      <option value="premium">Premium</option>
+    </select>
+    <button type="submit">Oblicz</button>
+    <p id="wynik" style="margin-top:15px; color:#0f0;"></p>
+  </form>
+</section>
+
+<section id="opinie">
+  <h2>Co mówią klienci</h2>
+  <div class="opinions">
+    <p>„Wszystko idealnie wymierzone, szybki montaż i świetna komunikacja.” – Natalia</p>
+    <p>„Meble prezentują się fantastycznie – polecam z całego serca.” – Krzysztof</p>
+  </div>
+</section>
+
+<section id="kontakt">
+  <h2>Skontaktuj się z nami</h2>
+  <form onsubmit="event.preventDefault(); alert('Wiadomość wysłana!');">
+    <input type="text" placeholder="Imię i nazwisko" required />
+    <input type="email" placeholder="Email" required />
+    <textarea rows="5" placeholder="Wiadomość" required></textarea>
+    <input type="file" />
+    <button type="submit">Wyślij</button>
+  </form>
+</section>
+
+<footer>
+  &copy; 2025 R-Meble Meble na wymiar. Wszelkie prawa zastrzeżone.
+</footer>
+
+<script>
+function oblicz() {
+  const szer = parseFloat(document.getElementById('szerokosc').value);
+  const wys = parseFloat(document.getElementById('wysokosc').value);
+  const material = document.getElementById('material').value;
+  if (isNaN(szer) || isNaN(wys)) {
+    document.getElementById('wynik').textContent = 'Wprowadź poprawne wymiary.';
+    return;
+  }
+  let cenaZaM2 = material === 'premium' ? 850 : 600;
+  let wynik = ((szer / 100) * (wys / 100)) * cenaZaM2;
+  document.getElementById('wynik').textContent = `Szacunkowa cena: ${Math.round(wynik)} zł`;
+}
+</script>
+
+</body>
+</html>
